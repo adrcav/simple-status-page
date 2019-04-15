@@ -33,7 +33,8 @@ export const Container = styled.div`
             background-color: #313ee7;
             padding: 10px 35px;
             border-radius: 20px;
-            display: block;
+            display: flex;
+            align-items: center;
             transform: translateY(-50%);
             color: white;
             border: 2px solid #313ee7;
@@ -41,6 +42,10 @@ export const Container = styled.div`
 
             &:hover {
                 border-color: white;
+            }
+
+            p {
+                margin-left: 5px;
             }
         }
     }
@@ -64,6 +69,68 @@ export const Container = styled.div`
             margin: 5px 0 7px;
             text-align: justify;
             line-height: 1.2rem;
+        }
+    }
+`;
+
+export const ListMonitors = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: .75rem 1.25rem;
+        border: 1px solid #dce4ec;
+        background-color: white;
+        margin-bottom: -1px;
+        position: relative;
+        text-decoration: none;
+        transition: all .2s ease-in-out;
+        color: #555;
+
+        span {
+            display: inline-flex;
+            align-items: center;
+
+            &:first-child {
+                color: #444;
+            }
+
+            &:last-child {
+                color: #888;
+            }
+        }
+
+        &:hover {
+            background-color: #f0f5fa;
+        }
+
+        &:first-child {
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+
+        &:last-child {
+            border-bottom-left-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+
+        /* Colors */
+        .success {
+            color: #0c9!important;
+        }
+        .danger {
+            color: #f2545b!important;
+        }
+        .warning {
+            color: #f7bc06!important;
+        }
+        .dark {
+            color: #12263f!important;
         }
     }
 `;
