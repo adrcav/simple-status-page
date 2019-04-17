@@ -3,6 +3,7 @@ import api, { settings } from '../../services/api';
 import { FiCheckCircle } from 'react-icons/fi';
 import { FaCircle } from 'react-icons/fa';
 import classNames from 'classnames';
+import ContentLoader, { Facebook } from 'react-content-loader';
 
 import Footer from '../../components/Footer';
 
@@ -11,14 +12,16 @@ import { Container, ListMonitors } from './styles.js';
 export default class Main extends Component {
     state = {
         monitors: [],
+        loading: true,
     };
 
     async componentDidMount() {
+        this.setState({ loading: true });
         const response = await api.post('/getMonitors', settings({ 
             'logs': 1,
             'custom_uptime_ratios': '7',
         }));
-        this.setState({ monitors: response.data.monitors });
+        this.setState({ monitors: response.data.monitors, loading: false });
     }
 
     render() {
@@ -35,6 +38,22 @@ export default class Main extends Component {
 
                     <h2>System Status</h2>
                     <p className="desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+
+                    {this.state.loading &&
+                        <ContentLoader
+                            height={55}
+                            width={550}
+                            speed={2}
+                            primaryColor="#f3f3f3"
+                            secondaryColor="#ecebeb"
+                        >
+                            <circle cx="28" cy="26" r="0" /> 
+                            <circle cx="16" cy="15" r="9" /> 
+                            <rect x="33" y="11" rx="0" ry="0" width="161" height="10" /> 
+                            <circle cx="16" cy="45" r="9" /> 
+                            <rect x="33" y="41" rx="0" ry="0" width="161" height="10" />
+                        </ContentLoader>
+                    }
 
                     <ListMonitors>
                         {this.state.monitors.map(monitor => (

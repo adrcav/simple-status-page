@@ -7,6 +7,7 @@
     "classnames": "^2.2.6",
     "qs": "^6.7.0",
     "react": "^16.8.6",
+    "react-content-loader": "^4.2.1",
     "react-dom": "^16.8.6",
     "react-icons": "^3.5.0",
     "react-router-dom": "^5.0.0",
