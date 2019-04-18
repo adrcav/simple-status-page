@@ -40,6 +40,11 @@ export const Container = styled.div`
             border: 2px solid #313ee7;
             transition: all .2s ease-in-out;
 
+            &.warning {
+                background-color: #ba3737;
+                border-color: #ba3737;
+            }
+
             &:hover {
                 border-color: white;
             }

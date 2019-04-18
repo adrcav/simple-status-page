@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import api, { settings } from '../../services/api';
-import { FiCheckCircle } from 'react-icons/fi';
+import { FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import { FaCircle } from 'react-icons/fa';
 import classNames from 'classnames';
-import ContentLoader, { Facebook } from 'react-content-loader';
+import ContentLoader from 'react-content-loader';
 
 import Footer from '../../components/Footer';
 
@@ -13,6 +13,7 @@ export default class Main extends Component {
     state = {
         monitors: [],
         loading: true,
+        status: true,
     };
 
     async componentDidMount() {
@@ -20,9 +21,19 @@ export default class Main extends Component {
         const response = await api.post('/getMonitors', settings({ 
             'logs': 1,
             'custom_uptime_ratios': '7',
+            'all_time_uptime_durations': 1,
         }));
         this.setState({ monitors: response.data.monitors, loading: false });
-    }
+        this.checkStatus();
+    };
+
+    checkStatus = () => {
+        this.state.monitors.forEach(monitor => {
+            if (monitor.status !== 0 || monitor.status !== 2) {
+                this.setState({ status: false });
+            }
+        });
+    };
 
     render() {
         return (
@@ -30,10 +41,17 @@ export default class Main extends Component {
                 <h1>{process.env.REACT_APP_TITLE}</h1>
                 <div className="main-container">
                     <div className="main-operational">
-                        <span>
-                            <FiCheckCircle />
-                            <p>All systems are operational</p>
-                        </span>
+                        {this.state.status ? (
+                            <span>
+                                <FiCheckCircle />
+                                <p>All systems are operational</p>
+                            </span>
+                        ) : (
+                            <span className="warning">
+                                <FiAlertCircle />
+                                <p>Some systems are experiecing issues</p>
+                            </span>
+                        )}
                     </div>
 
                     <h2>System Status</h2>
